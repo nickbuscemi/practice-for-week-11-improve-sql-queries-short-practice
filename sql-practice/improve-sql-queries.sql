@@ -4,10 +4,14 @@
 -- Query: Select all cats that have a toy with an id of 5
 
     -- Your code here
+    --EXPLAIN QUERY PLAN
+    --SELECT cats.* 
+    --FROM cats 
+    --JOIN cat_toys ON cats.id = cat_toys.cat_id
+    --WHERE cat_toys.toy_id = 5;
 
 -- Paste your results below (as a comment):
-
-
+    
 
 
 ----------
@@ -16,8 +20,15 @@
 -- Query:
 
     -- Your code here
+    --EXPLAIN QUERY PLAN
+    --SELECT cats.* 
+    --FROM cats 
+    --JOIN cat_toys ON cats.id = cat_toys.cat_id
+    --WHERE cat_toys.toy_id = 5;
 
 -- Paste your results below (as a comment):
+    --SCAN TABLE cat_toys
+    --SEARCH TABLE cats USING INTEGER PRIMARY KEY (rowid=?)
 
 
 -- What do your results mean?
@@ -39,7 +50,7 @@
 
 -- Paste your results below (as a comment):
 
-
+    --Run Time: real 0.001 user 0.000767 sys 0.000049
 
 
 ----------
@@ -49,12 +60,20 @@
 -- Create index:
 
     -- Your code here
+    CREATE INDEX idx_toyd ON cat_toys(toy_id);
 
 -- Analyze Query:
     -- Your code here
+    --EXPLAIN QUERY PLAN
+    --SELECT cats.* 
+    --FROM cats 
+    --JOIN cat_toys ON cats.id = cat_toys.cat_id
+    --WHERE cat_toys.toy_id = 5;
 
 -- Paste your results below (as a comment):
-
+ 
+    --SEARCH TABLE cat_toys USING INDEX idx_toyd (toy_id=?)
+    --SEARCH TABLE cats USING INTEGER PRIMARY KEY (rowid=?)
 
 -- Analyze Results:
 
@@ -69,6 +88,10 @@
 -- Query (to be used in the sqlite CLI):
 
     -- Your code here
+    SELECT cats.* 
+    FROM cats 
+    JOIN cat_toys ON cats.id = cat_toys.cat_id
+    WHERE cat_toys.toy_id = 5;
 
 -- Paste your results below (as a comment):
 
@@ -78,6 +101,7 @@
 
 
     -- Did the execution time improve (decrease)?
+    -- execution time improved drastically due to changing the inital plan from scan to search using an index
 
 
     -- Do you see any other opportunities for making this query more efficient?
